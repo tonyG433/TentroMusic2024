@@ -41,18 +41,6 @@ module.exports = {
                     }
                 });
 
-                const pause = new ButtonBuilder()
-                    .setCustomId('pause')
-                    .setLabel('Pause')
-                    .setStyle(ButtonStyle.Danger);
-
-                const resume = new ButtonBuilder()
-                    .setCustomId('resume')
-                    .setLabel('Resume')
-                    .setStyle(ButtonStyle.Secondary);
-
-                const row = new ActionRowBuilder()
-                    .addComponents(pause, resume);
 
                 const Embed = new EmbedBuilder()
                     .setColor(0x0099FF)
@@ -60,15 +48,9 @@ module.exports = {
                     .setDescription(`**has been added to the queue**`)
                     .setThumbnail(track.thumbnail)
 
-                return interaction.followUp({
-                    embeds: [Embed],
-                    components: [row]
-                });
+                return interaction.followUp({embeds: [Embed],});
 
             }
-
-
-
 
         } catch (e) {
             console.error(e);

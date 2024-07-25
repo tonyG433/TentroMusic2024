@@ -32,19 +32,15 @@ client.slashCommands = new Collection()
 
 const player = new Player(client);
 
-
 player.extractors.loadDefault((ext) => ext !== 'YouTubeExtractor');
-
-player.events.on('playerStart', (queue, track) => {
-    // we will later define queue.metadata object while creating the queue
-    queue.metadata.channel.send(`Started playing **${track.title}**!`);
-});
 
 // Slash commands loading
 require('./handlers/command')(client, false)
 
 // loads the events
 require('./handlers/event')(client)
+
+require('./events/playerEvents')
 
 // Logs in
 client.login(config.token);

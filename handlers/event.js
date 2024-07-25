@@ -1,6 +1,7 @@
 const fs = require('fs')
 const logger = require('../utils/logger')
 const chalk = require("chalk");
+const { player } = require('discord-player');
 
 module.exports = (client) => {
     const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
