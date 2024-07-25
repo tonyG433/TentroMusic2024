@@ -1,0 +1,24 @@
+{
+  "name": "discordbottemplate",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@discordjs/rest": "^1.0.1",
+    "discord-api-types": "^0.37.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@discord-player/extractor": "^4.5.0",
+    "@evan/opus": "^1.0.3",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "chalk": "^4.1.2",
+    "discord-player": "^6.7.0",
+    "discord-player-youtubei": "^1.2.0-beta.3",
+    "discord.js": "^14.15.3",
+    "ffmpeg-static": "^5.2.0",
+    "mediaplex": "^0.0.9",
+    "moment": "^2.29.4",
+    "youtube-ext": "^1.1.25"
+  }
+}
