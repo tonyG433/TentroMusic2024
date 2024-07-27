@@ -4,6 +4,7 @@ const { useMainPlayer } = require('discord-player');
 
 
 
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('play')
@@ -11,7 +12,23 @@ module.exports = {
         .addStringOption(option =>
             option.setName('query')
                 .setDescription('The query to search for.')
-                .setRequired(true)),
+                .setRequired(true)
+                .setAutocomplete(true)),
+
+    async autocomplete(interaction) {
+        const player = useMainPlayer();
+        const focusedOption = interaction.options.getFocused();
+        if(!focusedOption)return
+        const results = await player.search(focusedOption);
+            return interaction.respond(
+            results.tracks.slice(0, 10).map((t) => ({
+                name: t.title,
+                value: t.url
+            }))
+        );
+
+    },
+
     async slashRun(client, interaction) {
 
         const player = useMainPlayer();
@@ -28,7 +45,7 @@ module.exports = {
         try {
             const searchResult = await player.search(query, {
                 requestedBy: interaction.user,
-                searchEngine: 'youtube' // Specify YouTube as the search engine
+                searchEngine: 'youtube'
             });
 
             if (!searchResult || !searchResult.tracks.length) {
@@ -37,7 +54,13 @@ module.exports = {
 
                 const { track } = await player.play(channel, searchResult.tracks[0].url, {
                     nodeOptions: {
-                        metadata: interaction
+                        metadata: interaction,
+                        leaveOnStop: false,
+                        leaveOnStopCooldown: 5000,
+                        leaveOnEnd: false,
+                        leaveOnEndCooldown: 5000,
+                        leaveOnEmpty: false,
+                        leaveOnEmptyCooldown: 5000,
                     }
                 });
 
@@ -57,5 +80,6 @@ module.exports = {
             return interaction.followUp(`Something went wrong: ${e.message}`);
         }
 
-    }
+    },
+
 };

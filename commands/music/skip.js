@@ -8,7 +8,7 @@ const { useQueue } = require("discord-player");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('skip')
-        .setDescription('Skips the current song.'),
+        .setDescription('Skips the current song e.'), //TODO
     async slashRun(client, interaction) {
 
         const player = useMainPlayer();
