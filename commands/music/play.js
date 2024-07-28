@@ -22,12 +22,22 @@ module.exports = {
         const focusedOption = interaction.options.getFocused();
         if(!focusedOption)return
         const results = await player.search(focusedOption);
+        if(!results) interaction.respond([{ name: "Could not find any results.", value: "" }])
+        if(results.hasPlaylist()){
             return interaction.respond(
-            results.tracks.slice(0, 10).map((t) => ({
-                name: t.title,
-                value: t.url
-            }))
-        );
+                results.tracks.slice(0, 18).map((t, i) => ({
+                    name: `${i+1} | `+t.title.slice(0, 100),
+                    value: t.url
+                }))
+            );
+        } else{
+            return interaction.respond(
+                results.tracks.slice(0, 10).map((t) => ({
+                    name: t.title.slice(0, 100),
+                    value: t.url
+                }))
+            );
+        }
 
     },
 
@@ -47,14 +57,9 @@ module.exports = {
         try {
 
 
-
             const searchResult = await player.search(query).catch(() => null);
             console.log(searchResult.hasPlaylist())
             console.log('brev')
-
-
-
-
 
 
 
