@@ -47,7 +47,7 @@ player.events.on('playerStart', async (queue, track) => {
         .setThumbnail(track.thumbnail)
         .setURL(`${track.url}`)
         .setDescription(`** ${progressBar} **`)
-        .setFooter({ text: `Requested by ${track.requestedBy.username}`, iconURL: `${track.requestedBy.displayAvatarURL()}` }); //TODO ????
+
 
     // Send the initial embed with buttons
     const message = await queue.metadata.channel.send({

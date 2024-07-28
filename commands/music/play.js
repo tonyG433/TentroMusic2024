@@ -1,6 +1,8 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder, EmbedBuilder} = require('discord.js');
-const { Player, QueryType } = require('discord-player');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder, EmbedBuilder, StringSelectMenuBuilder} = require('discord.js');
+const { Player, QueryType, Playlist} = require('discord-player');
 const { useMainPlayer } = require('discord-player');
+const {playlistInfo} = require("youtube-ext");
+const {isYoutubePlaylistURL} = require("youtube-ext/dist/utils");
 
 
 
@@ -53,16 +55,21 @@ module.exports = {
         await interaction.deferReply();
 
         try {
-            const searchResult = await player.search(query, {
-                requestedBy: interaction.user,
-                searchEngine: 'youtubeSearch'
-            });
+
+
+            const searchResult = await player.search(query).catch(() => null);
+            console.log(searchResult.hasPlaylist())
+            console.log('brev')
+
+
+
+
 
             if (!searchResult || !searchResult.tracks.length) {
                 return interaction.followUp('No results were found!');
             }else {
 
-                const { track } = await player.play(channel, searchResult.tracks[0].url, {
+                const { track } = await player.play(channel, searchResult, {
                     nodeOptions: {
                         metadata: interaction,
                         leaveOnStop: false,
@@ -83,7 +90,13 @@ module.exports = {
 
                 return interaction.followUp({embeds: [Embed],});
 
+
             }
+
+
+
+
+
 
         } catch (e) {
             console.error(e);
