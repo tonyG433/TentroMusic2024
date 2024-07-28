@@ -34,7 +34,7 @@ module.exports = {
                 .setThumbnail(track.thumbnail)
                 .setURL(`${track.url}`)
                 .setDescription(`** ${progressBar} **`)
-                .setFooter({ text: `Requested by ${track.requestedBy.username}`, iconURL: `${track.requestedBy.displayAvatarURL()}` });
+
 
             await interaction.message.edit({embeds: [EmbedUpdated]})
 
